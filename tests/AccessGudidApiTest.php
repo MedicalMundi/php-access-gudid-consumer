@@ -13,11 +13,14 @@ class AccessGudidApiTest extends TestCase
      * @test
      * @dataProvider  default_constant_provider
      */
-    public function should_contains_default_constant($value, $expectedConstatValue): void
+    public function should_contains_default_constant($value, $expectedConstantValue): void
     {
-        self::assertSame($expectedConstatValue, $value);
+        self::assertSame($expectedConstantValue, $value);
     }
 
+    /**
+     * @return \Generator <string|array>
+     */
     public function default_constant_provider(): \Generator
     {
         yield [AccessGudidApi::HOST, 'accessgudid.nlm.nih.gov'];
