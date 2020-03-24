@@ -1,0 +1,140 @@
+#sudo: required
+
+
+dist: trusty
+
+
+env:
+  global:
+    - RUN_SONAR_SCANNER=0
+
+language: php
+
+
+services:
+    - docker
+
+
+addons:
+  chrome: stable
+  sonarcloud:
+    organization: "zerai"
+    token:
+      secure: $SONAR_TOKEN
+
+
+cache:
+  directories:
+  - $HOME/.composer/cache
+
+
+.steps:
+  #
+  #   CI STEP
+  #
+  - &add-composer-bin-dir-to-path |
+      export PATH="$PATH:$HOME/.composer/vendor/bin"
+
+  - &disable-xdebug-php-extension |
+      phpenv config-rm xdebug.ini || echo "xdebug not available"
+
+  - &disable-php-memory-limit |
+      echo "memory_limit=-1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+
+  - &install-project-dependencies |
+      composer install --no-progress --no-suggest --ansi
+
+  - &lint-composer |
+      composer validate --strict --no-check-lock --ansi -vvv
+
+  - &run-phpunit-tests-with-coverage |
+      ./vendor/bin/phpunit --colors=always --coverage-clover=coverage-report.clover --log-junit=test-report.xml
+
+  - &run-phpunit-tests |
+      ./vendor/bin/phpunit --colors=always
+
+  - &run-code-style-check |
+      ./vendor/bin/php-cs-fixer fix --dry-run -v
+
+  - &run-static-analysis-check |
+      ./vendor/bin/phpstan analyse
+
+
+jobs:
+  include:
+    - name: '(PHP 7.2)'
+      php: '7.2'
+      env: RUN_SONAR_SCANNER=1
+      before_install:
+        - *disable-php-memory-limit
+      install:
+        - *install-project-dependencies
+      before_script:
+        - *lint-composer
+      script:
+        - *run-code-style-check
+        - *run-static-analysis-check
+        - *run-phpunit-tests-with-coverage
+      after_success:
+        - if [[ $RUN_SONAR_SCANNER == "1" ]]; then sonar-scanner -Dproject.settings=sonar-project.properties -Dsonar.projectVersion=$TRAVIS_BRANCH; fi
+
+
+    - name: '(PHP 7.3)'
+      php: '7.3'
+      before_install:
+        - *disable-xdebug-php-extension
+        - *disable-php-memory-limit
+      install:
+        - *install-project-dependencies
+      before_script:
+        - *lint-composer
+      script:
+        - *run-phpunit-tests
+
+
+    - name: '(PHP 7.4)'
+      php: '7.4'
+      before_install:
+        - *disable-xdebug-php-extension
+        - *disable-php-memory-limit
+      install:
+        - *install-project-dependencies
+      before_script:
+        - *lint-composer
+      script:
+        - *run-phpunit-tests
+
+
+
+#    - name: '(Composer module installation test - remove in future)'
+#      php: '7.2'
+#      branches:
+#        only:
+#        - master
+#        - ^release
+#        - ^v0
+#        except:
+#        - develop
+#        - ^feature
+#      script:
+#        - git clone https://github.com/openemr/openemr.git openemr_codebase
+#        # remove vendor dir
+#        - rm -fR openemr_codebase/vendor/
+#        - ls -al openemr_codebase/
+#
+#
+#        # installation for prod environment - last version of the module with --no-dev option
+#        - cp -R openemr_codebase/ codebase_prod
+#        - composer install --no-dev --working-dir=codebase_prod/
+#        - composer require zerai/oe-module-demo-farm-add-ons --working-dir=codebase_prod/
+#        - rm -fR codebase_prod/vendor/
+#        - composer install --no-dev --working-dir=codebase_prod/
+#
+#
+#        # installation for dev environment - last version of the module
+#        - cp -R openemr_codebase/ codebase_dev
+#        - composer install --working-dir=codebase_dev/
+#        - composer require zerai/oe-module-demo-farm-add-ons --working-dir=codebase_dev/
+#        - rm -fR codebase_dev/vendor/
+#        - composer install --working-dir=codebase_dev/
+

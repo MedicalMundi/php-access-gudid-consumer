@@ -1,0 +1,20 @@
+includes:
+    #- phpstan-baseline.neon   # https://medium.com/@ondrejmirtes/phpstans-baseline-feature-lets-you-hold-new-code-to-a-higher-standard-e77d815a5dff ### vendor/bin/phpstan analyse --level 7     --configuration phpstan.neon.dist     --error-format baselineNeon     src/ tests/ > phpstan-baseline.neon
+
+
+parameters:
+    level: 7
+    paths:
+        - src
+        - tests
+
+
+    ignoreErrors:
+        #- '##'
+        # Excludes example message: '#Call to an undefined method [a-zA-Z0-9\\_]+::method\(\)#'
+
+
+    excludes_analyse:
+        - '*/vendor/*'
+        - '*/var/*'
+        - '*/extra/*'
