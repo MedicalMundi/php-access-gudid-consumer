@@ -17,10 +17,10 @@ services:
 
 addons:
   chrome: stable
-  sonarcloud:
-    organization: "zerai"
-    token:
-      secure: $SONAR_TOKEN
+#  sonarcloud:
+#    organization: "zerai"
+#    token:
+#      secure: $SONAR_TOKEN
 
 
 cache:
@@ -75,8 +75,8 @@ jobs:
         - *run-code-style-check
         - *run-static-analysis-check
         - *run-phpunit-tests-with-coverage
-      after_success:
-        - if [[ $RUN_SONAR_SCANNER == "1" ]]; then sonar-scanner -Dproject.settings=sonar-project.properties -Dsonar.projectVersion=$TRAVIS_BRANCH; fi
+      #after_success:
+        #- if [[ $RUN_SONAR_SCANNER == "1" ]]; then sonar-scanner -Dproject.settings=sonar-project.properties -Dsonar.projectVersion=$TRAVIS_BRANCH; fi
 
 
     - name: '(PHP 7.3)'
@@ -103,38 +103,3 @@ jobs:
         - *lint-composer
       script:
         - *run-phpunit-tests
-
-
-
-#    - name: '(Composer module installation test - remove in future)'
-#      php: '7.2'
-#      branches:
-#        only:
-#        - master
-#        - ^release
-#        - ^v0
-#        except:
-#        - develop
-#        - ^feature
-#      script:
-#        - git clone https://github.com/openemr/openemr.git openemr_codebase
-#        # remove vendor dir
-#        - rm -fR openemr_codebase/vendor/
-#        - ls -al openemr_codebase/
-#
-#
-#        # installation for prod environment - last version of the module with --no-dev option
-#        - cp -R openemr_codebase/ codebase_prod
-#        - composer install --no-dev --working-dir=codebase_prod/
-#        - composer require zerai/oe-module-demo-farm-add-ons --working-dir=codebase_prod/
-#        - rm -fR codebase_prod/vendor/
-#        - composer install --no-dev --working-dir=codebase_prod/
-#
-#
-#        # installation for dev environment - last version of the module
-#        - cp -R openemr_codebase/ codebase_dev
-#        - composer install --working-dir=codebase_dev/
-#        - composer require zerai/oe-module-demo-farm-add-ons --working-dir=codebase_dev/
-#        - rm -fR codebase_dev/vendor/
-#        - composer install --working-dir=codebase_dev/
-
