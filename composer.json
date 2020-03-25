@@ -11,6 +11,7 @@
     "minimum-stability": "stable",
     "require": {
         "php": ">=7.2",
+        "ext-curl": "*",
         "php-http/client-implementation": "^1.0",
         "php-http/httplug": "^1.0|^2.0",
         "php-http/message-factory": "^1.0",
