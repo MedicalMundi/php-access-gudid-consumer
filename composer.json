@@ -1,5 +1,5 @@
 {
-    "name": "medicalmundi/access-gudid-http-client",
+    "name": "local/access-gudid-http-client",
     "type": "library",
     "license": "MIT",
     "description": "Http client for Access Gudid api.",
