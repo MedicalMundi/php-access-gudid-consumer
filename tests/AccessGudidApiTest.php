@@ -28,6 +28,6 @@ class AccessGudidApiTest extends TestCase
         yield [AccessGudidApi::ALLOWED_FORMAT, ['json' => 'json', 'xml' => 'xml']];
         yield [AccessGudidApi::RESOURCE_PARSE_UDI, 'parse_udi'];
         yield [AccessGudidApi::RESOURCE_DEVICE_LIST, 'devices/implantable/list'];
-        yield [AccessGudidApi::RESOURCE_DEVICE_LOOKUP, 'device/lookup'];
+        yield [AccessGudidApi::RESOURCE_DEVICE_LOOKUP, 'devices/lookup'];
     }
 }
