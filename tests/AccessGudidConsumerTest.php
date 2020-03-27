@@ -1,15 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
 namespace MedicalMundi\AccessGudid\Tests;
 
 use MedicalMundi\AccessGudid\AccessGudidConsumer;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpClient\Psr18Client;
-
-use GuzzleHttp\Client as GuzzleClient;
-use Http\Adapter\Guzzle6\Client as GuzzleAdapter;
 
 class AccessGudidConsumerTest extends TestCase
 {

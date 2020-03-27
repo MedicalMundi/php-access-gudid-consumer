@@ -7,7 +7,6 @@ namespace MedicalMundi\AccessGudid;
 use DomainException;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Client\ClientExceptionInterface;
-use RuntimeException;
 
 class AccessGudidConsumer
 {
@@ -30,9 +29,6 @@ class AccessGudidConsumer
      */
     private function doSend(string $httpMethod, string $httpEndpoint): string
     {
-        // TODO non symfony client
-        //$request = $this->httpRequestFactory->createRequest('GET', 'https://www.liip.ch/');
-
         $request = $this->httpClient->createRequest($httpMethod, $httpEndpoint);
 
         try {
@@ -40,12 +36,6 @@ class AccessGudidConsumer
         } catch (ClientExceptionInterface $e) {
             throw new DomainException($e->getMessage());
         }
-
-
-//        if (200 !== $response->getStatusCode()) {
-//            // TODO improve exception handeling - see php-http doc.
-//            throw new RuntimeException('HttpClient  error.');
-//        }
 
         return $response->getBody()->getContents();
     }
