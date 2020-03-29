@@ -20,7 +20,9 @@
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.16",
         "phpstan/phpstan": "^0.12.18",
-        "phpunit/phpunit": "^8.5"
+        "phpunit/phpunit": "^8.5",
+        "roave/backward-compatibility-check": "^3.0",
+        "roave/security-advisories": "dev-master"
     },
     "config": {
         "preferred-install": {

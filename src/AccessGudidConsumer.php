@@ -8,7 +8,7 @@ use DomainException;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Client\ClientExceptionInterface;
 
-class AccessGudidConsumer
+final class AccessGudidConsumer
 {
     /**
      * @var ClientInterface

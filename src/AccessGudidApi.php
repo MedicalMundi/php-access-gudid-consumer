@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MedicalMundi\AccessGudid;
 
-class AccessGudidApi
+final class AccessGudidApi
 {
     public const HOST = 'accessgudid.nlm.nih.gov';
 
