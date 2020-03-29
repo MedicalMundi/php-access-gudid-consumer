@@ -64,7 +64,7 @@ jobs:
   include:
     - name: '(PHP 7.2)'
       php: '7.2'
-      env: RUN_SONAR_SCANNER=1
+      env: RUN_SONAR_SCANNER=0
       before_install:
         - *disable-php-memory-limit
       install:
@@ -103,3 +103,19 @@ jobs:
         - *lint-composer
       script:
         - *run-phpunit-tests
+
+
+    - name: 'Roave Backward Compatibility Check'
+      php: '7.2'
+      env: RUN_SONAR_SCANNER=0
+      before_install:
+        - *disable-xdebug-php-extension
+        - *disable-php-memory-limit
+      install:
+        - *install-project-dependencies
+      script:
+        - vendor/bin/roave-backward-compatibility-check
+
+
+  allow_failures:
+    - name: 'Roave Backward Compatibility Check'
