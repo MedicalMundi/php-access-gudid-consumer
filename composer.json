@@ -1,9 +1,9 @@
 {
-    "name": "medicalmundi/access-gudid-http-client",
+    "name": "medicalmundi/php-access-gudid-consumer",
     "type": "library",
     "license": "MIT",
     "description": "Http consumer for Access Gudid Api.",
-    "keywords": ["access-gudid", "implantable-device"],
+    "keywords": ["access-gudid", "implantable-device", "api-consumer"],
     "authors": [
         {"name": "Teclai Zerai", "email": "teclaizerai@gmail.com"},
         {"name": "Francesca Bonadonna", "email": "francescabonadonna@medicalmundi.com"}
