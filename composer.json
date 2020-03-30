@@ -1,9 +1,9 @@
 {
-    "name": "medicalmundi/access-gudid-http-client",
+    "name": "medicalmundi/php-access-gudid-consumer",
     "type": "library",
     "license": "MIT",
-    "description": "Http client for Access Gudid api.",
-    "keywords": ["access-gudid", "implantable-device"],
+    "description": "Http consumer for Access Gudid Api.",
+    "keywords": ["access-gudid", "implantable-device", "api-consumer"],
     "authors": [
         {"name": "Teclai Zerai", "email": "teclaizerai@gmail.com"},
         {"name": "Francesca Bonadonna", "email": "francescabonadonna@medicalmundi.com"}
@@ -11,18 +11,18 @@
     "minimum-stability": "stable",
     "require": {
         "php": ">=7.2",
-        "php-http/client-implementation": "^1.0",
-        "php-http/httplug": "^1.0",
-        "php-http/message-factory": "^1.0",
-        "php-http/discovery": "^1.0"
+        "ext-curl": "*",
+        "nyholm/psr7": "^1.2",
+        "psr/http-client": "^1.0",
+        "psr/http-message": "^1.0",
+        "symfony/http-client": "^4.4||^5.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.16",
-        "guzzlehttp/psr7": "^1.0",
-        "php-http/message": "^1.0",
-        "php-http/mock-client": "^1.0",
         "phpstan/phpstan": "^0.12.18",
-        "phpunit/phpunit": "^8.5"
+        "phpunit/phpunit": "^8.5",
+        "roave/backward-compatibility-check": "^3.0",
+        "roave/security-advisories": "dev-master"
     },
     "config": {
         "preferred-install": {
