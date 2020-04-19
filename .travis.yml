@@ -1,12 +1,10 @@
-#sudo: required
-
-
 dist: trusty
 
 
 env:
   global:
     - RUN_SONAR_SCANNER=0
+    - BACKWARD_COMPATIBILITY_FROM=v0.1.0
 
 language: php
 
@@ -114,7 +112,7 @@ jobs:
       install:
         - *install-project-dependencies
       script:
-        - vendor/bin/roave-backward-compatibility-check
+        - vendor/bin/roave-backward-compatibility-check --from=$BACKWARD_COMPATIBILITY_FROM
 
 
   allow_failures:
