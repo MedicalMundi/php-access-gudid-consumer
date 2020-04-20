@@ -7,6 +7,7 @@ namespace MedicalMundi\AccessGudid;
 use DomainException;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Client\ClientExceptionInterface;
+use Psr\Http\Message\ResponseInterface;
 
 final class AccessGudidConsumer
 {
@@ -24,10 +25,10 @@ final class AccessGudidConsumer
     /**
      * @param string $httpMethod
      * @param string $httpEndpoint
-     * @return string
+     * @return ResponseInterface
      * @throws \Psr\Http\Client\ClientExceptionInterface
      */
-    private function doSend(string $httpMethod, string $httpEndpoint): string
+    private function doSend(string $httpMethod, string $httpEndpoint): ResponseInterface
     {
         $request = $this->httpClient->createRequest($httpMethod, $httpEndpoint);
 
@@ -37,7 +38,7 @@ final class AccessGudidConsumer
             throw new DomainException($e->getMessage());
         }
 
-        return $response->getBody()->getContents();
+        return $response;
     }
 
     private function percentEncoding(string $url): string
@@ -74,9 +75,9 @@ final class AccessGudidConsumer
 
         $endpoint = $this->endpoint($apiResource);
 
-        $jsonResponse = $this->doSend('GET', $endpoint);
+        $response = $this->doSend('GET', $endpoint);
 
-        return $jsonResponse;
+        return $response->getBody()->getContents();
     }
 
     /**
@@ -94,9 +95,9 @@ final class AccessGudidConsumer
 
         $endpoint = $this->endpoint($apiResource);
 
-        $jsonResponse = $this->doSend('GET', $endpoint);
+        $response = $this->doSend('GET', $endpoint);
 
-        return $jsonResponse;
+        return $response->getBody()->getContents();
     }
 
     /**
@@ -114,8 +115,8 @@ final class AccessGudidConsumer
 
         $endpoint = $this->endpoint($apiResource);
 
-        $jsonResponse = $this->doSend('GET', $endpoint);
+        $response = $this->doSend('GET', $endpoint);
 
-        return $jsonResponse;
+        return $response->getBody()->getContents();
     }
 }
