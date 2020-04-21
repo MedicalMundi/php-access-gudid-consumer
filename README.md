@@ -21,7 +21,7 @@ composer require medicalmundi/php-access-gudid-consumer
 Documentation
 -------------
 
-[Read the documentation](doc/index.md)
+[Read the documentation](docs/index.md)
 
 License
 -------
