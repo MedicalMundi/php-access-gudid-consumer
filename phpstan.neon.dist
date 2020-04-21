@@ -1,5 +1,7 @@
 includes:
     #- phpstan-baseline.neon   # https://medium.com/@ondrejmirtes/phpstans-baseline-feature-lets-you-hold-new-code-to-a-higher-standard-e77d815a5dff ### vendor/bin/phpstan analyse --level 7     --configuration phpstan.neon.dist     --error-format baselineNeon     src/ tests/ > phpstan-baseline.neon
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+    - vendor/phpstan/phpstan-phpunit/rules.neon
 
 
 parameters:
@@ -13,9 +15,9 @@ parameters:
         #- '##'
         # Excludes example message: '#Call to an undefined method [a-zA-Z0-9\\_]+::method\(\)#'
 
-        - "#^Method MedicalMundi\\\\AccessGudid\\\\Tests\\\\AccessGudidApiTest\\:\\:should_contains_default_constant\\(\\) has parameter \\$expectedConstantValue with no typehint specified\\.$#"
-        - "#^Method MedicalMundi\\\\AccessGudid\\\\Tests\\\\AccessGudidApiTest\\:\\:should_contains_default_constant\\(\\) has parameter \\$value with no typehint specified\\.$#"
-        - "#^Call to an undefined method Psr\\\\Http\\\\Client\\\\ClientInterface\\:\\:createRequest\\(\\)\\.#"
+        - "#^Method MedicalMundi\\\\AccessGudid\\\\Tests\\\\Unit\\\\AccessGudidApiTest\\:\\:should_contains_default_constant\\(\\) has parameter \\$expectedConstantValue with no typehint specified\\.$#"
+        - "#^Method MedicalMundi\\\\AccessGudid\\\\Tests\\\\Unit\\\\AccessGudidApiTest\\:\\:should_contains_default_constant\\(\\) has parameter \\$value with no typehint specified\\.$#"
+
 
     excludes_analyse:
         - '*/vendor/*'
