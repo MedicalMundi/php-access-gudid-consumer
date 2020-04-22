@@ -15,7 +15,7 @@ Install
 -------------
 
 ```console
-composer require medicalmundi/php-access-gudid-consumer
+> composer require medicalmundi/php-access-gudid-consumer
 ```
 
 Documentation
