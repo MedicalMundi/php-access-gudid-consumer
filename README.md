@@ -2,7 +2,7 @@
 Php Access GUDID api Consumer
 ==============================
 
-[![Build Status](https://travis-ci.org/MedicalMundi/access-gudid-http-client.svg?branch=master)](https://travis-ci.org/MedicalMundi/access-gudid-http-client)
+[![Build Status](https://travis-ci.org/MedicalMundi/php-access-gudid-consumer.svg?branch=master)](https://travis-ci.org/MedicalMundi/php-access-gudid-consumer)
 [![Latest Stable Version](https://poser.pugx.org/medicalmundi/php-access-gudid-consumer/v/stable)](https://packagist.org/packages/medicalmundi/php-access-gudid-consumer)
 [![Latest Unstable Version](https://poser.pugx.org/medicalmundi/php-access-gudid-consumer/v/unstable)](https://packagist.org/packages/medicalmundi/php-access-gudid-consumer)
 [![License](https://poser.pugx.org/medicalmundi/php-access-gudid-consumer/license)](https://packagist.org/packages/medicalmundi/php-access-gudid-consumer)

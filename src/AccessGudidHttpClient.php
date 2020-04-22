@@ -36,7 +36,7 @@ final class AccessGudidHttpClient implements AccessGudidHttpClientInterface
 
     private function percentEncoding(string $url): string
     {
-        return urldecode($url);
+        return urlencode($url);
     }
 
     /**
