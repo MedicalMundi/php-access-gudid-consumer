@@ -8,6 +8,7 @@ use MedicalMundi\AccessGudid\AccessGudidHttpClient;
 use MedicalMundi\AccessGudid\DeviceIdentifierType;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
@@ -25,6 +26,24 @@ class AccessGudidHttpClientTest extends TestCase
             ->disableOriginalConstructor()->getMock();
 
         $this->accessGudidHttpClient = new AccessGudidHttpClient($this->httpClient);
+    }
+
+    /** @test */
+    public function can_be_created_with_httpClient_as_param(): void
+    {
+        $httpClient = HttpClient::create();
+
+        $accessGudidHttpClient = new AccessGudidHttpClient($httpClient);
+
+        self::assertInstanceOf(AccessGudidHttpClient::class, $accessGudidHttpClient);
+    }
+
+    /** @test */
+    public function can_be_created_without_httpClient_as_param(): void
+    {
+        $accessGudidHttpClient = new AccessGudidHttpClient();
+
+        self::assertInstanceOf(AccessGudidHttpClient::class, $accessGudidHttpClient);
     }
 
     /** @test */
@@ -55,7 +74,6 @@ class AccessGudidHttpClientTest extends TestCase
         $contentToArray = json_decode($content, true);
         $this->assertIsArray($contentToArray);
     }
-
 
     /**
      * @test

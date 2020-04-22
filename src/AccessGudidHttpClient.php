@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MedicalMundi\AccessGudid;
 
+use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
@@ -14,9 +15,9 @@ final class AccessGudidHttpClient implements AccessGudidHttpClientInterface
     /** @var HttpClientInterface */
     protected $httpClient;
 
-    public function __construct(HttpClientInterface $httpClient)
+    public function __construct(HttpClientInterface $httpClient = null)
     {
-        $this->httpClient = $httpClient;
+        $this->httpClient = $httpClient ?? HttpClient::create();
     }
 
     private function endpoint(string $queryString = ''): string
