@@ -11,10 +11,9 @@ final class AccessGudidConsumer
      */
     private $httpClient;
 
-    public function __construct(
-        AccessGudidHttpClientInterface $httpClient
-    ) {
-        $this->httpClient = $httpClient;
+    public function __construct(AccessGudidHttpClientInterface $httpClient = null)
+    {
+        $this->httpClient = $httpClient ?? new AccessGudidHttpClient();
     }
 
 
@@ -30,7 +29,7 @@ final class AccessGudidConsumer
      */
     public function parseUdi(string $udiCode): string
     {
-        $response = $this->httpClient->getParseUdi($udiCode); // doSend('GET', $endpoint);
+        $response = $this->httpClient->getParseUdi($udiCode);
 
         return $response->getContent();
     }
