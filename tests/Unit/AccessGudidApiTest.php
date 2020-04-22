@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MedicalMundi\AccessGudid\Tests;
+namespace MedicalMundi\AccessGudid\Tests\Unit;
 
 use MedicalMundi\AccessGudid\AccessGudidApi;
 use PHPUnit\Framework\TestCase;
