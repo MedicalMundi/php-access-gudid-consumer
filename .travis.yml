@@ -4,7 +4,7 @@ dist: trusty
 env:
   global:
     - RUN_SONAR_SCANNER=0
-    - BACKWARD_COMPATIBILITY_FROM=v1.0.0
+    - BACKWARD_COMPATIBILITY_FROM=v1.1.0
 
 language: php
 
