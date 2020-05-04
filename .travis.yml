@@ -15,10 +15,9 @@ services:
 
 addons:
   chrome: stable
-#  sonarcloud:
-#    organization: "zerai"
-#    token:
-#      secure: $SONAR_TOKEN
+  sonarcloud:
+    organization: "medicalmundi"
+    token: $SECRET_SONAR_TOKEN
 
 
 cache:
@@ -62,7 +61,7 @@ jobs:
   include:
     - name: '(PHP 7.2)'
       php: '7.2'
-      env: RUN_SONAR_SCANNER=0
+      env: RUN_SONAR_SCANNER=1
       before_install:
         - *disable-php-memory-limit
       install:
@@ -73,8 +72,8 @@ jobs:
         - *run-code-style-check
         - *run-static-analysis-check
         - *run-phpunit-tests-with-coverage
-      #after_success:
-        #- if [[ $RUN_SONAR_SCANNER == "1" ]]; then sonar-scanner -Dproject.settings=sonar-project.properties -Dsonar.projectVersion=$TRAVIS_BRANCH; fi
+      after_success:
+        - if [[ $RUN_SONAR_SCANNER == "1" ]]; then sonar-scanner -Dproject.settings=sonar-project.properties -Dsonar.projectVersion=$TRAVIS_BRANCH; fi
 
 
     - name: '(PHP 7.3)'
