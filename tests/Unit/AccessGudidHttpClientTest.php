@@ -33,23 +33,21 @@ class AccessGudidHttpClientTest extends TestCase
     /** @test */
     public function can_be_created_with_httpClient_as_param(): void
     {
-        $httpClient = HttpClient::create();
+        $GudidHttpClient = new AccessGudidHttpClient(HttpClient::create());
 
-        $accessGudidHttpClient = new AccessGudidHttpClient($httpClient);
-
-        self::assertInstanceOf(AccessGudidHttpClient::class, $accessGudidHttpClient);
+        self::assertInstanceOf(AccessGudidHttpClient::class, $GudidHttpClient);
     }
 
     /** @test */
     public function can_be_created_without_httpClient_as_param(): void
     {
-        $accessGudidHttpClient = new AccessGudidHttpClient();
+        $GudidHttpClient = new AccessGudidHttpClient();
 
-        self::assertInstanceOf(AccessGudidHttpClient::class, $accessGudidHttpClient);
+        self::assertInstanceOf(AccessGudidHttpClient::class, $GudidHttpClient);
     }
 
     /** @test */
-    public function getParseUdi(): void
+    public function should_exec_call_getParseUdi(): void
     {
         $response = $this->getMockBuilder(ResponseInterface::class)
             ->disableOriginalConstructor()->getMock();
@@ -81,7 +79,7 @@ class AccessGudidHttpClientTest extends TestCase
      * @test
      * @dataProvider  deviceIdentifierTypeProvider
      */
-    public function getDevicesLookUp(DeviceIdentifierType $deviceIdentifierType): void
+    public function should_exec_call_getDevicesLookUp(DeviceIdentifierType $deviceIdentifierType): void
     {
         $response = $this->getMockBuilder(ResponseInterface::class)
             ->disableOriginalConstructor()->getMock();
@@ -113,7 +111,7 @@ class AccessGudidHttpClientTest extends TestCase
      * @test
      * @dataProvider  deviceIdentifierTypeProvider
      */
-    public function getDevicesHistory(DeviceIdentifierType $deviceIdentifierType): void
+    public function should_exec_call_getDevicesHistory(DeviceIdentifierType $deviceIdentifierType): void
     {
         $response = $this->getMockBuilder(ResponseInterface::class)
             ->disableOriginalConstructor()->getMock();

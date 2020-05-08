@@ -10,7 +10,6 @@ use MedicalMundi\AccessGudid\AccessGudidHttpClientInterface;
 use MedicalMundi\AccessGudid\DeviceIdentifierType;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class AccessGudidConsumerTest extends TestCase
@@ -32,23 +31,21 @@ class AccessGudidConsumerTest extends TestCase
     }
 
     /** @test */
-    public function can_be_created_with_httpClient_as_param(): void
+    public function can_be_created_with_a_GudidHttpClient_as_param(): void
     {
-        $httpClient = HttpClient::create();
+        $aGudidClient = new AccessGudidHttpClient();
 
-        $accessGudidHttpClient = new AccessGudidHttpClient($httpClient);
+        $gudidConsumer = new AccessGudidConsumer($aGudidClient);
 
-        $accessGudidConsumer = new AccessGudidConsumer($accessGudidHttpClient);
-
-        self::assertInstanceOf(AccessGudidConsumer::class, $accessGudidConsumer);
+        self::assertInstanceOf(AccessGudidConsumer::class, $gudidConsumer);
     }
 
     /** @test */
-    public function can_be_created_without_httpClient_as_param(): void
+    public function can_be_created_without_a_GudidHttpClient_as_param(): void
     {
-        $accessGudidConsumer = new AccessGudidConsumer();
+        $gudidConsumer = new AccessGudidConsumer();
 
-        self::assertInstanceOf(AccessGudidConsumer::class, $accessGudidConsumer);
+        self::assertInstanceOf(AccessGudidConsumer::class, $gudidConsumer);
     }
 
     /** @test */
