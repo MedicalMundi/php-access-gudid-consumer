@@ -14,6 +14,8 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class AccessGudidHttpClientTest extends TestCase
 {
+    private const IRRELEVANT_IDENTIFIER = '0123456789';
+
     /** @var MockObject|HttpClientInterface */
     private $httpClient;
 
@@ -31,23 +33,21 @@ class AccessGudidHttpClientTest extends TestCase
     /** @test */
     public function can_be_created_with_httpClient_as_param(): void
     {
-        $httpClient = HttpClient::create();
+        $GudidHttpClient = new AccessGudidHttpClient(HttpClient::create());
 
-        $accessGudidHttpClient = new AccessGudidHttpClient($httpClient);
-
-        self::assertInstanceOf(AccessGudidHttpClient::class, $accessGudidHttpClient);
+        self::assertInstanceOf(AccessGudidHttpClient::class, $GudidHttpClient);
     }
 
     /** @test */
     public function can_be_created_without_httpClient_as_param(): void
     {
-        $accessGudidHttpClient = new AccessGudidHttpClient();
+        $GudidHttpClient = new AccessGudidHttpClient();
 
-        self::assertInstanceOf(AccessGudidHttpClient::class, $accessGudidHttpClient);
+        self::assertInstanceOf(AccessGudidHttpClient::class, $GudidHttpClient);
     }
 
     /** @test */
-    public function getParseUdi(): void
+    public function should_exec_call_getParseUdi(): void
     {
         $response = $this->getMockBuilder(ResponseInterface::class)
             ->disableOriginalConstructor()->getMock();
@@ -64,7 +64,7 @@ class AccessGudidHttpClientTest extends TestCase
             ->method('request')
             ->willReturn($response);
 
-        $responseParseUdi = $this->accessGudidHttpClient->getParseUdi('irrelevant_identifier');
+        $responseParseUdi = $this->accessGudidHttpClient->getParseUdi(self::IRRELEVANT_IDENTIFIER);
 
         $this->assertInstanceOf(ResponseInterface::class, $responseParseUdi);
         $this->assertEquals($responseParseUdi->getStatusCode(), 200);
@@ -79,7 +79,7 @@ class AccessGudidHttpClientTest extends TestCase
      * @test
      * @dataProvider  deviceIdentifierTypeProvider
      */
-    public function getDevicesLookUp(DeviceIdentifierType $deviceIdentifierType): void
+    public function should_exec_call_getDevicesLookUp(DeviceIdentifierType $deviceIdentifierType): void
     {
         $response = $this->getMockBuilder(ResponseInterface::class)
             ->disableOriginalConstructor()->getMock();
@@ -96,7 +96,7 @@ class AccessGudidHttpClientTest extends TestCase
             ->method('request')
             ->willReturn($response);
 
-        $responseDevicesLookup = $this->accessGudidHttpClient->getDevicesLookup('irrelevant_identifier', $deviceIdentifierType);
+        $responseDevicesLookup = $this->accessGudidHttpClient->getDevicesLookup(self::IRRELEVANT_IDENTIFIER, $deviceIdentifierType);
 
         $this->assertInstanceOf(ResponseInterface::class, $responseDevicesLookup);
         $this->assertEquals($responseDevicesLookup->getStatusCode(), 200);
@@ -111,7 +111,7 @@ class AccessGudidHttpClientTest extends TestCase
      * @test
      * @dataProvider  deviceIdentifierTypeProvider
      */
-    public function getDevicesHistory(DeviceIdentifierType $deviceIdentifierType): void
+    public function should_exec_call_getDevicesHistory(DeviceIdentifierType $deviceIdentifierType): void
     {
         $response = $this->getMockBuilder(ResponseInterface::class)
             ->disableOriginalConstructor()->getMock();
@@ -128,7 +128,7 @@ class AccessGudidHttpClientTest extends TestCase
             ->method('request')
             ->willReturn($response);
 
-        $responseDevicesHistory = $this->accessGudidHttpClient->getDevicesHistory('irrelevant_identifier', $deviceIdentifierType);
+        $responseDevicesHistory = $this->accessGudidHttpClient->getDevicesHistory(self::IRRELEVANT_IDENTIFIER, $deviceIdentifierType);
 
         $this->assertInstanceOf(ResponseInterface::class, $responseDevicesHistory);
         $this->assertEquals($responseDevicesHistory->getStatusCode(), 200);

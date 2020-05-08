@@ -57,10 +57,10 @@ Allowed type:
 // call with a device identifier code
 $GudidConsumer->devicesLookup('08717648200274', DeviceIdentifierType::deviceIdentifier());
 
-// call with an udi code
+// call with a full unique device identifier code
 $GudidConsumer->devicesLookup('=/08717648200274=,000025=A99971312345600=>014032=}013032&,1000000000000XYZ123', DeviceIdentifierType::fullUniqueDeviceIdentifier());
 
-// call with public record key code
+// call with a public record key code
 $GudidConsumer->devicesLookup('f18845df-38a8-4fc2-8d26-5cce28c8b868', DeviceIdentifierType::publicRecordKey());
 ```
 
