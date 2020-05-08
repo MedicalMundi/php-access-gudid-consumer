@@ -8,6 +8,10 @@ Php Access GUDID api Consumer
 [![License](https://poser.pugx.org/medicalmundi/php-access-gudid-consumer/license)](https://packagist.org/packages/medicalmundi/php-access-gudid-consumer)
 [![composer.lock](https://poser.pugx.org/medicalmundi/php-access-gudid-consumer/composerlock)](https://packagist.org/packages/medicalmundi/php-access-gudid-consumer)
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=MedicalMundi_php-access-gudid-consumer&metric=alert_status)](https://sonarcloud.io/dashboard?id=MedicalMundi_php-access-gudid-consumer)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=MedicalMundi_php-access-gudid-consumer&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=MedicalMundi_php-access-gudid-consumer)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=MedicalMundi_php-access-gudid-consumer&metric=coverage)](https://sonarcloud.io/dashboard?id=MedicalMundi_php-access-gudid-consumer)
+
 This library provides an abstraction for the consumption of
 [AccessGUDID](https://accessgudid.nlm.nih.gov/) api.
 
