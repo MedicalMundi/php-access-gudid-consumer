@@ -67,7 +67,7 @@ class AccessGudidHttpClientTest extends TestCase
         $responseParseUdi = $this->accessGudidHttpClient->getParseUdi(self::IRRELEVANT_IDENTIFIER);
 
         $this->assertInstanceOf(ResponseInterface::class, $responseParseUdi);
-        $this->assertEquals($responseParseUdi->getStatusCode(), 200);
+        $this->assertEquals(200, $responseParseUdi->getStatusCode());
         $content = $responseParseUdi->getContent();
         $this->assertNotEmpty($content);
         $this->assertIsString($content);
@@ -99,7 +99,7 @@ class AccessGudidHttpClientTest extends TestCase
         $responseDevicesLookup = $this->accessGudidHttpClient->getDevicesLookup(self::IRRELEVANT_IDENTIFIER, $deviceIdentifierType);
 
         $this->assertInstanceOf(ResponseInterface::class, $responseDevicesLookup);
-        $this->assertEquals($responseDevicesLookup->getStatusCode(), 200);
+        $this->assertEquals(200, $responseDevicesLookup->getStatusCode());
         $content = $responseDevicesLookup->getContent();
         $this->assertNotEmpty($content);
         $this->assertIsString($content);
@@ -131,7 +131,7 @@ class AccessGudidHttpClientTest extends TestCase
         $responseDevicesHistory = $this->accessGudidHttpClient->getDevicesHistory(self::IRRELEVANT_IDENTIFIER, $deviceIdentifierType);
 
         $this->assertInstanceOf(ResponseInterface::class, $responseDevicesHistory);
-        $this->assertEquals($responseDevicesHistory->getStatusCode(), 200);
+        $this->assertEquals(200, $responseDevicesHistory->getStatusCode());
         $content = $responseDevicesHistory->getContent();
         $this->assertNotEmpty($content);
         $this->assertIsString($content);

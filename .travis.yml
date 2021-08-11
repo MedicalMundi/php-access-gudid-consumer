@@ -74,6 +74,7 @@ jobs:
         - *run-phpunit-tests-with-coverage
       after_success:
         - if [[ $RUN_SONAR_SCANNER == "1" ]]; then sonar-scanner -Dproject.settings=sonar-project.properties -Dsonar.projectVersion=$TRAVIS_BRANCH; fi
+        - bash <(curl -s https://codecov.io/bash)
 
 
     - name: '(PHP 7.3)'
