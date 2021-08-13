@@ -3,6 +3,7 @@
 /var
 
 /vendor
+/tools/*/vendor/
 
 /composer.lock
 
