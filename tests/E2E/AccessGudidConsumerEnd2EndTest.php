@@ -17,6 +17,7 @@ class AccessGudidConsumerEnd2EndTest extends TestCase
      */
     public function should_execute_parse_udi_request(string $udiCode, string $expectedData): void
     {
+        self::markTestSkipped();
         $sut = new AccessGudidConsumer();
 
         $response = $sut->parseUdi($udiCode);
@@ -46,6 +47,8 @@ class AccessGudidConsumerEnd2EndTest extends TestCase
      */
     public function should_execute_devices_lookup_request(string $identifier, DeviceIdentifierType $identifierType, string $expectedData): void
     {
+        self::markTestSkipped();
+
         $sut = new AccessGudidConsumer();
 
         $response = $sut->devicesLookup($identifier, $identifierType);
@@ -83,6 +86,7 @@ class AccessGudidConsumerEnd2EndTest extends TestCase
      */
     public function should_execute_devices_history_request(string $identifier, DeviceIdentifierType $identifierType, string $expectedData): void
     {
+        self::markTestSkipped();
         $sut = new AccessGudidConsumer();
 
         $response = $sut->devicesHistory($identifier, $identifierType);
