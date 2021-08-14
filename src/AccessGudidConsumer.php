@@ -16,7 +16,6 @@ final class AccessGudidConsumer
         $this->httpClient = $httpClient ?? new AccessGudidHttpClient();
     }
 
-
     /**
      * @see https://accessgudid.nlm.nih.gov/resources/developers/parse_udi_api
      *
