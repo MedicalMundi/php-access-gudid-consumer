@@ -18,49 +18,17 @@ env:
 
 
 jobs:
-  env-vars:
-    name: Reveal env vars (PHP ${{ matrix.php }})
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        php:
-          - '7.4'
-      fail-fast: true
-
-    steps:
-      -
-        name: Checkout
-        uses: actions/checkout@v2
-
-      -
-        name: Reveal env vars
-        run: |
-          echo GITHUB_WORKFLOW   = $GITHUB_WORKFLOW
-          echo HOME              = $HOME
-          echo GITHUB_ACTION     = $GITHUB_ACTION
-          echo GITHUB_ACTIONS    = $GITHUB_ACTIONS
-          echo GITHUB_ACTOR      = $GITHUB_ACTOR
-          echo GITHUB_REPOSITORY = $GITHUB_REPOSITORY
-          echo GITHUB_EVENT_NAME = $GITHUB_EVENT_NAME
-          echo GITHUB_EVENT_PATH = $GITHUB_EVENT_PATH
-          echo GITHUB_WORKSPACE  = $GITHUB_WORKSPACE
-          echo GITHUB_SHA        = $GITHUB_SHA
-          echo GITHUB_REF        = $GITHUB_REF
-
-
   phpunit:
     name: Code tests (PHP ${{ matrix.php }})
     runs-on: ubuntu-20.04
-    services:
-      api-mock-server:
-        image: mockserver/mockserver:mockserver-5.11.2
-        ports:
-          - 1080/tcp
 
     strategy:
       matrix:
         php:
+          - '7.2'
+          - '7.3'
           - '7.4'
+          - '8.0'
         include:
           - php: '7.4'
             coverage: true
@@ -96,7 +64,6 @@ jobs:
           extensions: ${{ env.PHP_EXTENSIONS }}
           ini-values: date.timezone=Europe/Rome, memory_limit=-1
           coverage: xdebug
-          tools: symfony
 
       -
         name: Get Composer Cache Directory
@@ -109,15 +76,11 @@ jobs:
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: ${{ runner.os }}-composer-
+          restore-keys: ${{ runner.os }}-composer-${{ matrix.php }}
 
       -
         name: Install Composer dependencies
-        run: composer install --prefer-dist --no-progress --no-suggest --ansi --no-scripts
-
-      -
-        name: Run test on support code (phpunit custom assertions)
-        run: ./vendor/bin/phpunit --testsuite phpunit-extension
+        run: composer install --prefer-dist --no-progress --ansi --no-scripts
 
       -
         name: Enable code coverage
@@ -130,10 +93,10 @@ jobs:
         run: |
           if [ "$COVERAGE" = '1' ]; then
             mkdir -p reports/phpunit
-            ./vendor/bin/phpunit --testsuite unit --coverage-clover reports/phpunit/unit-test-clover.xml --log-junit reports/phpunit/unit-test-junit.xml
+            ./vendor/bin/phpunit --coverage-clover reports/phpunit/unit-test-clover.xml --log-junit reports/phpunit/unit-test-junit.xml
             echo "::set-output name=exit_code::$(echo -n "$?")"
           else
-            ./vendor/bin/phpunit --testsuite unit
+            ./vendor/bin/phpunit
           fi
 
       -
@@ -145,19 +108,3 @@ jobs:
           flags: unit-tests
           name: codecov-php-7.4
           fail_ci_if_error: true
-
-      -
-        name: Run support test
-        run: ./vendor/bin/phpunit --testsuite support
-
-      -
-        name: Run integration test
-        run: ./vendor/bin/phpunit --testsuite integration --group io-network
-        env:
-          API_MOCK_SERVER: http://127.0.0.1:${{ job.services.api-mock-server.ports[1080] }}
-
-      -
-        name: Run acceptance test
-        run: ./vendor/bin/phpunit --testsuite acceptance
-        env:
-          API_MOCK_SERVER: http://127.0.0.1:${{ job.services.api-mock-server.ports[1080] }}
