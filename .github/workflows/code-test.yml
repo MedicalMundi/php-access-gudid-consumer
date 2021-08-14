@@ -80,7 +80,9 @@ jobs:
 
       -
         name: Install Composer dependencies
-        run: composer install --prefer-dist --no-progress --ansi --no-scripts
+        run: |
+          composer install --prefer-dist --no-progress --ansi --no-scripts
+          composer bin all install
 
       -
         name: Enable code coverage
@@ -108,3 +110,7 @@ jobs:
           flags: unit-tests
           name: codecov-php-7.4
           fail_ci_if_error: true
+
+      -
+        name: Run phpstan
+        run: ./vendor/bin/phpstan
