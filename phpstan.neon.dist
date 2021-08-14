@@ -17,6 +17,7 @@ parameters:
 
         - "#^Method MedicalMundi\\\\AccessGudid\\\\Tests\\\\Unit\\\\AccessGudidApiTest\\:\\:should_contains_default_constant\\(\\) has parameter \\$expectedConstantValue with no typehint specified\\.$#"
         - "#^Method MedicalMundi\\\\AccessGudid\\\\Tests\\\\Unit\\\\AccessGudidApiTest\\:\\:should_contains_default_constant\\(\\) has parameter \\$value with no typehint specified\\.$#"
+        - "#^Unreachable statement - code above always terminates.#"
 
 
     excludes_analyse:
