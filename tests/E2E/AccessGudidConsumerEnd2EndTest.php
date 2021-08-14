@@ -11,6 +11,7 @@ use PHPUnit\Framework\TestCase;
 class AccessGudidConsumerEnd2EndTest extends TestCase
 {
     private const WEB_RESPONSE_EXAMPLE_DIR = '/WebResponseExampleFixture/';
+
     /**
      * @test
      * @dataProvider udiCodeProvider

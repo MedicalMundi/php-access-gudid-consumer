@@ -27,7 +27,7 @@ final class AccessGudidHttpClient implements AccessGudidHttpClientInterface
 
     private function apiResource(string $resourceType, string $queryString = '', string $resourceFormat = AccessGudidApi::ALLOWED_FORMAT['json']): string
     {
-        if (!in_array($resourceFormat, AccessGudidApi::ALLOWED_FORMAT)) {
+        if (! in_array($resourceFormat, AccessGudidApi::ALLOWED_FORMAT)) {
             throw new \InvalidArgumentException('Invalid api format.');
         }
 

@@ -14,13 +14,15 @@ final class DeviceIdentifierType
     ];
 
     public const PublicRecordKey = 'record_key';
+
     public const DeviceIdentifier = 'di';
+
     public const FullUniqueDeviceIdentifier = 'udi';
 
-    /** @var string  */
+    /** @var string */
     private $name;
 
-    /** @var string  */
+    /** @var string */
     private $value;
 
     private function __construct(string $name)
