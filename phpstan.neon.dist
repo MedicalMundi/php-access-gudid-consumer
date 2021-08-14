@@ -1,8 +1,5 @@
 includes:
     #- phpstan-baseline.neon   # https://medium.com/@ondrejmirtes/phpstans-baseline-feature-lets-you-hold-new-code-to-a-higher-standard-e77d815a5dff ### vendor/bin/phpstan analyse --level 7     --configuration phpstan.neon.dist     --error-format baselineNeon     src/ tests/ > phpstan-baseline.neon
-    - vendor/phpstan/phpstan-phpunit/extension.neon
-    - vendor/phpstan/phpstan-phpunit/rules.neon
-
 
 parameters:
     level: 7
