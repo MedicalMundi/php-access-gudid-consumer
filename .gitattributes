@@ -4,6 +4,7 @@
 .travis.yml export-ignore
 phpstan.neon.dist export-ignore
 phpunit.xml.dist export-ignore
+sonar-project.properties
 /tests export-ignore
 /tools export-ignore
 /.github export-ignore
