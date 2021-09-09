@@ -19,7 +19,7 @@ env:
 
 jobs:
   phpunit:
-    name: Code tests (PHP ${{ matrix.php }})
+    name: Code tests (PHP ${{ matrix.php }}) - ${{ matrix.dependency-version }}
     if: "!contains(github.event.head_commit.message, '(skip ci)')"
     runs-on: ubuntu-20.04
 
@@ -33,6 +33,7 @@ jobs:
         include:
           - php: '7.4'
             coverage: true
+        dependency-version: [prefer-lowest, prefer-stable]
       fail-fast: true
 
     steps:
@@ -82,21 +83,13 @@ jobs:
       -
         name: Install Composer dependencies
         run: |
-          composer install --prefer-dist --no-progress --ansi --no-scripts
+          composer update --${{ matrix.dependency-version }} --prefer-dist --no-progress --ansi --no-scripts
           composer bin all install
 
       -
         name: Enable code coverage
-        if: matrix.coverage
+        if: ${{ (matrix.coverage == true) }} && ${{ (matrix.dependency-version == 'prefer-stable') }}
         run: echo "COVERAGE=1" >> $GITHUB_ENV
-
-      -
-        name: Run phpstan
-        run: ./vendor/bin/phpstan
-
-      -
-        name: Run ecs
-        run: ./vendor/bin/ecs
 
       -
         name: Run unit test
