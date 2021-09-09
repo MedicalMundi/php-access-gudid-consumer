@@ -1,6 +1,6 @@
 # https://docs.github.com/en/actions
 
-name: Tests
+name: Coding Standards
 
 on:
   push:
@@ -11,29 +11,24 @@ on:
 
 
 env:
-  #GITHUB_PAT: ${{ secrets.BADGE_SPERIMENTALE_GHA_PAT }}
   COVERAGE: '0'
   PHP_EXTENSIONS: curl
   PHP_EXTENSIONS_CACHE_KEY: cache-php-extensions-v1
 
 
 jobs:
-  phpunit:
-    name: Code tests (PHP ${{ matrix.php }}) - ${{ matrix.dependency-version }}
+  ecs:
+    name: Easy coding standards on (PHP ${{ matrix.php }})
     if: "!contains(github.event.head_commit.message, '(skip ci)')"
     runs-on: ubuntu-20.04
 
     strategy:
       matrix:
         php:
-          - '7.2'
-          - '7.3'
           - '7.4'
-          - '8.0'
         include:
           - php: '7.4'
-            coverage: true
-        dependency-version: [prefer-lowest, prefer-stable]
+            coverage: false
       fail-fast: true
 
     steps:
@@ -83,32 +78,14 @@ jobs:
       -
         name: Install Composer dependencies
         run: |
-          composer update --${{ matrix.dependency-version }} --prefer-dist --no-progress --ansi --no-scripts
+          composer install --prefer-dist --no-progress --ansi --no-scripts
           composer bin all install
 
       -
         name: Enable code coverage
-        if: ${{ (matrix.coverage == true) }} && ${{ (matrix.dependency-version == 'prefer-stable') }}
+        if: matrix.coverage
         run: echo "COVERAGE=1" >> $GITHUB_ENV
 
       -
-        name: Run unit test
-        id: unit-test
-        run: |
-          if [ "$COVERAGE" = '1' ]; then
-            mkdir -p reports/phpunit
-            ./vendor/bin/phpunit --coverage-clover reports/phpunit/unit-test-clover.xml --log-junit reports/phpunit/unit-test-junit.xml
-            echo "::set-output name=exit_code::$(echo -n "$?")"
-          else
-            ./vendor/bin/phpunit
-          fi
-
-      -
-        name: Upload unit tests coverage to Codecov
-        if: ${{ (matrix.php == '7.4') && (steps.unit-test.outcome == 'success')}}
-        uses: codecov/codecov-action@v1
-        with:
-          files: ./reports/phpunit/unit-test-clover.xml
-          flags: unit-tests
-          name: codecov-php-7.4
-          fail_ci_if_error: true
+        name: Run ecs
+        run: ./vendor/bin/ecs check
