@@ -1,6 +1,6 @@
 # https://docs.github.com/en/actions
 
-name: Static Analysis
+name: Coding Standards
 
 on:
   push:
@@ -17,8 +17,8 @@ env:
 
 
 jobs:
-  phpstan:
-    name: PHPstan on (PHP ${{ matrix.php }})
+  ecs:
+    name: Easy coding standards on (PHP ${{ matrix.php }})
     if: "!contains(github.event.head_commit.message, '(skip ci)')"
     runs-on: ubuntu-20.04
 
@@ -87,9 +87,5 @@ jobs:
         run: echo "COVERAGE=1" >> $GITHUB_ENV
 
       -
-        name: Run phpstan
-        run: ./vendor/bin/phpstan
-
-      -
         name: Run ecs
-        run: ./vendor/bin/ecs
+        run: ./vendor/bin/ecs check
