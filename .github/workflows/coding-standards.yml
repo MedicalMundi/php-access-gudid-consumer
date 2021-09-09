@@ -1,0 +1,95 @@
+# https://docs.github.com/en/actions
+
+name: Static Analysis
+
+on:
+  push:
+
+
+  pull_request:
+    branches: [ main ]
+
+
+env:
+  COVERAGE: '0'
+  PHP_EXTENSIONS: curl
+  PHP_EXTENSIONS_CACHE_KEY: cache-php-extensions-v1
+
+
+jobs:
+  phpstan:
+    name: PHPstan on (PHP ${{ matrix.php }})
+    if: "!contains(github.event.head_commit.message, '(skip ci)')"
+    runs-on: ubuntu-20.04
+
+    strategy:
+      matrix:
+        php:
+          - '7.4'
+        include:
+          - php: '7.4'
+            coverage: false
+      fail-fast: true
+
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Setup php extension cache environment
+        id: cache-php-extensions
+        uses: shivammathur/cache-extensions@v1
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: ${{ env.PHP_EXTENSIONS }}
+          key: ${{ env.PHP_EXTENSIONS_CACHE_KEY }}
+
+      -
+        name: Cache PHP extensions
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.cache-php-extensions.outputs.dir }}
+          key: ${{ steps.cache-php-extensions.outputs.key }}
+          restore-keys: ${{ steps.cache-php-extensions.outputs.key }}
+
+      -
+        name: setup-php
+        id: setup-php
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: ${{ env.PHP_EXTENSIONS }}
+          ini-values: date.timezone=Europe/Rome, memory_limit=-1
+          coverage: xdebug
+
+      -
+        name: Get Composer Cache Directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      -
+        name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-${{ matrix.php }}
+
+      -
+        name: Install Composer dependencies
+        run: |
+          composer install --prefer-dist --no-progress --ansi --no-scripts
+          composer bin all install
+
+      -
+        name: Enable code coverage
+        if: matrix.coverage
+        run: echo "COVERAGE=1" >> $GITHUB_ENV
+
+      -
+        name: Run phpstan
+        run: ./vendor/bin/phpstan
+
+      -
+        name: Run ecs
+        run: ./vendor/bin/ecs
