@@ -91,6 +91,14 @@ jobs:
         run: echo "COVERAGE=1" >> $GITHUB_ENV
 
       -
+        name: Run phpstan
+        run: ./vendor/bin/phpstan
+
+      -
+        name: Run ecs
+        run: ./vendor/bin/ecs
+
+      -
         name: Run unit test
         id: unit-test
         run: |
@@ -111,11 +119,3 @@ jobs:
           flags: unit-tests
           name: codecov-php-7.4
           fail_ci_if_error: true
-
-      -
-        name: Run phpstan
-        run: ./vendor/bin/phpstan
-
-      -
-        name: Run ecs
-        run: ./vendor/bin/ecs
