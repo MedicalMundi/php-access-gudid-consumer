@@ -19,7 +19,8 @@ updates:
   - commit-message:
       include: "scope"
       prefix: "composer"
-    directory: "/tools/phpstan"
+    directory: "/tools/ecs"
+    target-branch: "develop"
     labels:
       - "tool dependency"
     open-pull-requests-limit: 10
@@ -31,7 +32,8 @@ updates:
   - commit-message:
       include: "scope"
       prefix: "composer"
-    directory: "/tools/ecs"
+    directory: "/tools/phpstan"
+    target-branch: "develop"
     labels:
       - "tool dependency"
     open-pull-requests-limit: 10
