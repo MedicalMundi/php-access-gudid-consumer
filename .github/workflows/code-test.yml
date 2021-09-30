@@ -11,7 +11,6 @@ on:
 
 
 env:
-  #GITHUB_PAT: ${{ secrets.BADGE_SPERIMENTALE_GHA_PAT }}
   COVERAGE: '0'
   PHP_EXTENSIONS: curl
   PHP_EXTENSIONS_CACHE_KEY: cache-php-extensions-v1
