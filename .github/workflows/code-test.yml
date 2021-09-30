@@ -37,11 +37,10 @@ jobs:
       fail-fast: true
 
     steps:
-      -
-        name: Checkout
+      - name: Checkout
         uses: actions/checkout@v2
-      -
-        name: Setup php extension cache environment
+
+      - name: Setup php extension cache environment
         id: cache-php-extensions
         uses: shivammathur/cache-extensions@v1
         with:
@@ -49,16 +48,14 @@ jobs:
           extensions: ${{ env.PHP_EXTENSIONS }}
           key: ${{ env.PHP_EXTENSIONS_CACHE_KEY }}
 
-      -
-        name: Cache PHP extensions
+      - name: Cache PHP extensions
         uses: actions/cache@v2
         with:
           path: ${{ steps.cache-php-extensions.outputs.dir }}
           key: ${{ steps.cache-php-extensions.outputs.key }}
           restore-keys: ${{ steps.cache-php-extensions.outputs.key }}
 
-      -
-        name: setup-php
+      - name: setup-php
         id: setup-php
         uses: shivammathur/setup-php@v2
         with:
@@ -67,32 +64,27 @@ jobs:
           ini-values: date.timezone=Europe/Rome, memory_limit=-1
           coverage: xdebug
 
-      -
-        name: Get Composer Cache Directory
+      - name: Get Composer Cache Directory
         id: composer-cache
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
 
-      -
-        name: Cache dependencies
+      - name: Cache dependencies
         uses: actions/cache@v2
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-${{ matrix.php }}
 
-      -
-        name: Install Composer dependencies
+      - name: Install Composer dependencies
         run: |
           composer update --${{ matrix.dependency-version }} --prefer-dist --no-progress --ansi --no-scripts
           composer bin all install
 
-      -
-        name: Enable code coverage
+      - name: Enable code coverage
         if: ${{ (matrix.coverage == true) }} && ${{ (matrix.dependency-version == 'prefer-stable') }}
         run: echo "COVERAGE=1" >> $GITHUB_ENV
 
-      -
-        name: Run unit test
+      - name: Run unit test
         id: unit-test
         run: |
           if [ "$COVERAGE" = '1' ]; then
@@ -103,8 +95,7 @@ jobs:
             ./vendor/bin/phpunit
           fi
 
-      -
-        name: Upload unit tests coverage to Codecov
+      - name: Upload unit tests coverage to Codecov
         if: ${{ (matrix.php == '7.4') && (steps.unit-test.outcome == 'success')}}
         uses: codecov/codecov-action@v1
         with:
