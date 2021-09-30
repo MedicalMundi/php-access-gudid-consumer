@@ -112,3 +112,29 @@ jobs:
           flags: unit-tests
           name: codecov-php-7.4
           fail_ci_if_error: true
+
+      - name: SonarCloud Scan And publication
+        if: ${{ (matrix.php == '7.4') && (steps.unit-test.outcome == 'success')}}
+        uses: sonarsource/sonarcloud-github-action@master
+        with:
+          projectBaseDir: ./
+          args: >
+            -Dsonar.organization=medicalmundi
+            -Dsonar.projectKey=MedicalMundi_php-access-gudid-consumer
+            -Dsonar.projectName=php-access-gudid-consumer
+            -Dsonar.links.homepage=https://github.com/MedicalMundi/php-access-gudid-consumer
+            -Dsonar.links.ci=https://travis-ci.org/github/MedicalMundi/php-access-gudid-consumer
+            -Dsonar.links.scm=https://github.com/MedicalMundi/php-access-gudid-consumer
+            -Dsonar.links.issue=https://github.com/MedicalMundi/php-access-gudid-consumer/issues
+            -Dsonar.sourceEncoding=UTF-8
+            -Dsonar.language=php
+            -Dsonar.sources=src/
+            -Dsonar.tests=tests/
+            -Dsonar.exclusion=docs/
+            -Dsonar.php.coverage.reportPaths=reports/phpunit/unit-test-clover.xml
+            -Dsonar.php.tests.reportPath=reports/phpunit/test-report.xml
+            -Dsonar.verbose=true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        continue-on-error: true
