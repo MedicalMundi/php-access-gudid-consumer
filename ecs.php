@@ -3,7 +3,10 @@
 declare(strict_types=1);
 
 use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
+use PhpCsFixer\Fixer\FunctionNotation\NativeFunctionInvocationFixer;
+use PhpCsFixer\Fixer\Import\FullyQualifiedStrictTypesFixer;
 use PhpCsFixer\Fixer\Import\NoUnusedImportsFixer;
+use PhpCsFixer\Fixer\Import\OrderedImportsFixer;
 use PhpCsFixer\Fixer\NamespaceNotation\BlankLineAfterNamespaceFixer;
 use PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer;
 use PhpCsFixer\Fixer\PhpTag\LinebreakAfterOpeningTagFixer;
@@ -29,9 +32,9 @@ return static function (ECSConfig $ecsConfig): void {
         BlankLineAfterNamespaceFixer::class,
         NoUnusedImportsFixer::class,
         LinebreakAfterOpeningTagFixer::class,
-        //OrderedImportsFixer::class,
-        //NativeFunctionInvocationFixer::class,
-        //FullyQualifiedStrictTypesFixer::class,
+        OrderedImportsFixer::class,
+        NativeFunctionInvocationFixer::class,
+        FullyQualifiedStrictTypesFixer::class,
         StrictComparisonFixer::class,
 
     ]);
