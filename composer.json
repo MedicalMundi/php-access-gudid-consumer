@@ -35,6 +35,9 @@
         "roave/security-advisories": "dev-master"
     },
     "config": {
+        "allow-plugins": {
+            "bamarni/composer-bin-plugin": true
+        },
         "preferred-install": {
             "*": "dist"
         },
