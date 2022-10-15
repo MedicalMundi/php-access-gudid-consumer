@@ -7,7 +7,7 @@ updates:
       include: "scope"
       prefix: "composer"
     directory: "/"
-    target-branch: "develop"
+    target-branch: "main"
     labels:
       - "php dependency"
     open-pull-requests-limit: 5
@@ -20,7 +20,7 @@ updates:
       include: "scope"
       prefix: "composer"
     directory: "/tools/ecs"
-    target-branch: "develop"
+    target-branch: "main"
     labels:
       - "tool dependency"
     open-pull-requests-limit: 10
@@ -33,7 +33,7 @@ updates:
       include: "scope"
       prefix: "composer"
     directory: "/tools/phpstan"
-    target-branch: "develop"
+    target-branch: "main"
     labels:
       - "tool dependency"
     open-pull-requests-limit: 10
