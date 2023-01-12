@@ -9,16 +9,16 @@
     "packages-dev": [
         {
             "name": "symplify/easy-coding-standard",
-            "version": "11.1.33.72",
+            "version": "11.2.2.72",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/easy-coding-standard.git",
-                "reference": "5a4e3a9b8701281a7b04921deba49a866fd20d5f"
+                "reference": "efef2606b8c1b9117aeb9d547c582eb12d66bc0a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/easy-coding-standard/zipball/5a4e3a9b8701281a7b04921deba49a866fd20d5f",
-                "reference": "5a4e3a9b8701281a7b04921deba49a866fd20d5f",
+                "url": "https://api.github.com/repos/symplify/easy-coding-standard/zipball/efef2606b8c1b9117aeb9d547c582eb12d66bc0a",
+                "reference": "efef2606b8c1b9117aeb9d547c582eb12d66bc0a",
                 "shasum": ""
             },
             "require": {
@@ -44,7 +44,7 @@
             "description": "Use Coding Standard with 0-knowledge of PHP-CS-Fixer and PHP_CodeSniffer",
             "support": {
                 "issues": "https://github.com/symplify/easy-coding-standard/issues",
-                "source": "https://github.com/symplify/easy-coding-standard/tree/11.1.33.72"
+                "source": "https://github.com/symplify/easy-coding-standard/tree/11.2.2.72"
             },
             "funding": [
                 {
@@ -56,7 +56,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-01-03T14:12:08+00:00"
+            "time": "2023-01-11T14:42:18+00:00"
         }
     ],
     "aliases": [],
