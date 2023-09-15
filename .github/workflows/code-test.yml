@@ -68,7 +68,8 @@ jobs:
 
       - name: Get Composer Cache Directory
         id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+        #run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache dependencies
         uses: actions/cache@v3
@@ -84,12 +85,13 @@ jobs:
 
       - name: Enable code coverage
         if: ${{ (matrix.coverage == true) }} && ${{ (matrix.dependency-version == 'prefer-stable') }}
-        run: echo "COVERAGE=1" >> $GITHUB_ENV
+        #run: echo "COVERAGE=1" >> $GITHUB_ENV
+        run: echo "COVERAGE=1" >> $GITHUB_OUTPUT
 
       - name: Run unit test
         id: unit-test
         run: |
-          if [ "$COVERAGE" = '1' ]; then
+          if [ "${{ env.COVERAGE }}" = '1' ]; then
             mkdir -p reports/phpunit
             ./vendor/bin/phpunit --coverage-clover reports/phpunit/unit-test-clover.xml --log-junit reports/phpunit/unit-test-junit.xml
             echo "::set-output name=exit_code::$(echo -n "$?")"
