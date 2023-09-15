@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - [#7](https://github.com/MedicalMundi/php-access-gudid-consumer/issues/7) Allow XML response
 
+## [v1.2.0] -  2023-09-15
+
+### Removed
+- removed php-7.2 support
+
+
 ## [v1.1.7] -  2021-09-17
 
 - Maintenance release
