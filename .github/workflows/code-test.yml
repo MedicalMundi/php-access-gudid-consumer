@@ -101,7 +101,7 @@ jobs:
 
       - name: Upload unit tests coverage to Codecov
         if: ${{ (matrix.php == '7.4') && (steps.unit-test.outcome == 'success')}}
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v2
         with:
           files: ./reports/phpunit/unit-test-clover.xml
           flags: unit-tests
